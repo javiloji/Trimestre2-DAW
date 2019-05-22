@@ -1,4 +1,4 @@
-package excepciones;
+package capaNegocio;
 
 public class IvaInvalidoException extends Exception {
 

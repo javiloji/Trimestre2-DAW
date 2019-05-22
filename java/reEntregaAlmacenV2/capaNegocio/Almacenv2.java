@@ -20,73 +20,37 @@ package capaNegocio;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import excepciones.*;
 import capaNegocio.*;
 import utiles.*;
 
 public class Almacenv2 {
 
 	private ArrayList<Articulo> almacen = new ArrayList<Articulo>();
-
-
-	public boolean comprobarCodigo(int codigo) throws CodigoNoExiteException {
-    boolean codigoEncontrado = false;
-
-    for (Articulo x : almacen) {
-      if (x.getCodigo() == codigo) {
-        codigoEncontrado = true;
-      }
-    }
-    if (codigoEncontrado == false) {
-      throw new CodigoNoExiteException("El código introducido no existe");
-    }
-    return codigoEncontrado;
-  }
 	
 	public void alta(String descripcionIntroducido,Iva iva, double precioCompra, double precioVenta,
 			int stock) throws IvaInvalidoException,Exception {
-
-		Articulo articulo = new Articulo(descripcionIntroducido,iva, precioCompra, precioVenta,
-				stock);
-
-		if (!almacen.contains(articulo)) {
-			almacen.add(articulo);
-		} else {
-			throw new ArticuloYaExisteException("El artículo que deseas crear ya existe. ");
-		}
-
+	  
+			almacen.add(new Articulo(descripcionIntroducido,iva, precioCompra, precioVenta,stock));
 	}
 
-	public void baja(int codigo) throws CodigoNoExiteException {
+	public void baja(int codigo) {
 		
-		almacen.remove(new Articulo(codigo));
+	  toString();
+		if(!almacen.remove(new Articulo(codigo)))
+		  System.err.println("Error, el código introducido no existe.");;
 
 	}
 
 	public void modificar(Articulo articulo,Iva iva, String descripcionIntroducido, double precioCompraIntroducido,
 			double precioVentaIntroducido, int stockIntroducido) throws CodigoNoExiteException, StockNegativoException, IvaInvalidoException {
-		int indice = 0;
-		/*
-		for (Articulo x : almacen) {
-			if (x.getCodigo() == codigo) {
-				indice = almacen.indexOf(x);
-			}
-		}*/
 
 			articulo.set(descripcionIntroducido,iva, precioCompraIntroducido, precioVentaIntroducido, stockIntroducido);
-			/*almacen.set(indice,
-					articulo(descripcionIntroducido, precioCompraIntroducido, precioVentaIntroducido, stockIntroducido));
-		*/
 	}
 
 	
 	
-	public void entrarMercancia(int codigo) throws StockNegativoException {
-		for(Articulo x : almacen) {
-			if(x.getCodigo() == codigo) {
-					x.entraMercancia();
-			}
-		}
+	public void entrarMercancia(int codigo) throws StockNegativoException, CodigoNoExiteException {
+		get(codigo).entraMercancia();
 	}
 
 	@Override
@@ -94,17 +58,20 @@ public class Almacenv2 {
 		return "" + almacen;
 	}
 
-	public void salirMercancia(int codigo) throws StockNegativoException {
-		for(Articulo x : almacen) {
-			if(x.getCodigo() == codigo) {
-					x.saleMercancia();
-			}
-		}
+	public void salirMercancia(int codigo) throws StockNegativoException, CodigoNoExiteException {
+		get(codigo).saleMercancia();
 	}
 
-	public Articulo get(int codigoIntroducido) {
-			Articulo articulo = almacen.get(almacen.indexOf(new Articulo(codigoIntroducido)));
-		return articulo;
+	public Articulo get(int codigoIntroducido) throws CodigoNoExiteException {
+	  
+	  try {
+			
+		return almacen.get(almacen.indexOf(new Articulo(codigoIntroducido)));
+	  }catch(IndexOutOfBoundsException  e){
+	    throw new CodigoNoExiteException("El codigo introducido no existe.");
+	  }
+		
+		
 	}
 
 }

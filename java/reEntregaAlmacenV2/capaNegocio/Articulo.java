@@ -6,7 +6,6 @@ package capaNegocio;
  * 
  */
 
-import excepciones.*;
 import utiles.*;
 
 /**
@@ -26,7 +25,7 @@ import utiles.*;
  * @author Javier Lopera Jimenez
  *
  */
-public class Articulo extends Almacenv2{
+public class Articulo{
 
 	//atributos de la clase almacen
 	static private int contador=1;
@@ -35,7 +34,7 @@ public class Articulo extends Almacenv2{
 	private double precioCompra;
 	private double precioVenta;
 	private int stock;
-	public Iva iva;
+	private Iva iva;
 	
 	// Creamos la Enumeracion Iva, que utilizaremos para controlar el tipo de Iva
 	
@@ -58,11 +57,7 @@ public class Articulo extends Almacenv2{
 		setPrecioCompra(precioCompra);
 		setPrecioVenta(precioVenta);
 		setIva(iva);
-		try {
-			setStock(stock);
-		} catch (StockNegativoException e) {
-			System.err.println(e.getMessage()+" se le asignar� el valor por defecto 0");
-		}
+		setStock(stock);
 	  setCodigo();
 	}
 
@@ -122,7 +117,6 @@ public class Articulo extends Almacenv2{
     return iva;
   }
 
-
   public void setIva(Iva iva) throws IvaInvalidoException {
     if (iva == null) {
       throw new IvaInvalidoException("Error, el iva no puede ser null");
@@ -138,8 +132,6 @@ public class Articulo extends Almacenv2{
 	private void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
 	
 	public double getPrecioCompra() {
 		return precioCompra;
@@ -166,21 +158,21 @@ public class Articulo extends Almacenv2{
 	}
 
 
-	private void setStock(int stock) throws StockNegativoException {
-		if(stock>=0) {
+	private void setStock(int stock) {
 			this.stock = stock;
-		}else {
-			throw new StockNegativoException("El Stock de un producto no puede ser negativo");
-			
-		}
 	}
 	
-	public void entraMercancia() throws StockNegativoException {
+	public void entraMercancia(){
 		setStock(getStock()+1);
 	}
 	
 	public void saleMercancia() throws StockNegativoException {
-		setStock(getStock()-1);
+	  if(stock>0) {
+	    setStock(getStock()-1);
+	  }
+    throw new StockNegativoException("El Stock de un producto no puede ser negativo");
+      
+    
 	}
 	
 //Añadimos la enumeracion Iva al toString

@@ -10,8 +10,10 @@ import java.io.IOException;
 
 import capaNegocio.Almacenv2;
 import capaNegocio.Articulo;
+import capaNegocio.CodigoNoExiteException;
 import capaNegocio.Iva;
-import excepciones.*;
+import capaNegocio.IvaInvalidoException;
+import capaNegocio.StockNegativoException;
 import utiles.*;
 
 public class TestAlmacenv2 {
@@ -107,13 +109,23 @@ public class TestAlmacenv2 {
 
     case 5:
       
-      entrarMercancia();
+      try {
+        entrarMercancia();
+      } catch (CodigoNoExiteException e) {
+        // TODO Auto-generated catch block
+        System.err.println(e.getMessage());
+      }
       
       break;
 
     case 6:
       
-      salirMercancia();
+      try {
+        salirMercancia();
+      } catch (CodigoNoExiteException e) {
+        // TODO Auto-generated catch block
+        System.err.println("Este articulo no se ha podido añadir.");
+      }
     
       break;
     
@@ -146,13 +158,7 @@ public class TestAlmacenv2 {
     } catch (NumberFormatException | IOException e) {
       System.err.println("Debes introducir un numero");
     }
-
-    try {
       almacen.baja(codigoIntroducido);
-    } catch (CodigoNoExiteException e1) {
-      System.err.println(e1.getMessage());
-    }
-    
   }
   
   public static void modificar() throws IvaInvalidoException, Exception {
@@ -163,12 +169,6 @@ public class TestAlmacenv2 {
       codigoIntroducido = Teclado.leerEntero();
     } catch (NumberFormatException | IOException e2) {
       System.err.println("Debes introducir un numero");
-    }
-    try {
-      almacen.comprobarCodigo(codigoIntroducido);
-    } catch (CodigoNoExiteException e1) {
-      System.err.println(e1.getMessage());
-     
     }
 
     Articulo articulo = almacen.get(codigoIntroducido);
@@ -195,15 +195,10 @@ public class TestAlmacenv2 {
     }
   }
   
-  public static void entrarMercancia() throws NumberFormatException, IOException {
+  public static void entrarMercancia() throws NumberFormatException, IOException, CodigoNoExiteException {
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea aumentar su stock");
     int codigoIntroducido = Teclado.leerEntero();
-    try {
-      almacen.comprobarCodigo(codigoIntroducido);
-    } catch (CodigoNoExiteException e) {
-      System.err.println(e.getMessage());
-    }
     try {
       almacen.entrarMercancia(codigoIntroducido);
     } catch (StockNegativoException e) {
@@ -212,15 +207,10 @@ public class TestAlmacenv2 {
 
   }
   
-  public static void salirMercancia() throws NumberFormatException, IOException {
+  public static void salirMercancia() throws NumberFormatException, IOException , CodigoNoExiteException {
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea disminuir su stock");
     int codigoIntroducido = Teclado.leerEntero();
-    try {
-      almacen.comprobarCodigo(codigoIntroducido);
-    } catch (CodigoNoExiteException e) {
-      System.err.println(e.getMessage());
-    }
     try {
       almacen.salirMercancia(codigoIntroducido);
     } catch (StockNegativoException e) {
