@@ -27,7 +27,7 @@ ancho y el alto del rect�ngulo teniendo en cuenta las restricciones en
  *
  */
 
-public class Cuadrado extends Rectangulo{
+public class Cuadrado extends Rectangulo implements Comparable<Cuadrado>{
 
   private double lado;
 	
@@ -85,4 +85,9 @@ public class Cuadrado extends Rectangulo{
 	  return super.toString();
 		
 	}	
+	
+	@Override
+	public int compareTo(Cuadrado cuadrado) {
+	  return (int) (super.getAlto()-cuadrado.getAncho());
+	}
 }

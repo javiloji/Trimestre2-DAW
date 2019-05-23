@@ -41,6 +41,8 @@ public class TestCuadrado {
 		
 		c.compararCuadrado(c, c2);
 		
+		System.out.println(c2.compareTo(c));
+		
 		}catch(ArithmeticException e) {
 			System.err.println("El cuadrado debe tener el lado mayor que cero y menor o igual que 10.");
 		}
