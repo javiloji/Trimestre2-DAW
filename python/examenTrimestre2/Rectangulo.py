@@ -124,7 +124,7 @@ class Cuadrado(Rectangulo):
     """    
         
     def __str__(self):
-            return Rectangulo.__str__(self)
+        return Rectangulo.__str__(self)
     
     # Main para hacer las pruebas
     
@@ -148,7 +148,7 @@ if __name__ == '__main__':
         print(c1>c2)
 
     except:
-            sys.stderr.write("Error")
+        sys.stderr.write("Error")
             
     
     
