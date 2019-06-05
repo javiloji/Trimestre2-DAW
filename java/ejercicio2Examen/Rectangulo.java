@@ -29,8 +29,8 @@ ancho y el alto del rectángulo teniendo en cuenta las restricciones en
  */
 public class Rectangulo {
 
-  private double ancho;
-  private double alto;
+  protected static double ancho;
+  protected static double alto;
 
 
   /**

@@ -26,138 +26,129 @@ ancho y el alto del rectángulo teniendo en cuenta las restricciones en
 import sys
 
 class Rectangulo():
-	
-	#COnstructor de Rectangulo
-	
-	def __init__(self,ancho,alto):
-		
-		
-		self.ancho=ancho
-		self.alto=alto
-		
-	
+    
+    #COnstructor de Rectángulo
+    
+    def __init__(self,ancho,alto):
+        
+        
+        self.ancho=ancho
+        self.alto=alto
+        
+    
 
-	# Getters y Setters
-	
-	@property
-	def ancho(self):
-		return self.__ancho
-	
-	@ancho.setter
-	def ancho(self,ancho):
-		
-		if(ancho<0 or ancho >=10):
-			raise TypeError
-		self.__ancho=ancho
-		
-	@property
-	def alto(self):
-		return self.__alto
-	@alto.setter
-	def alto(self,alto):
-		if((alto<0 or alto>=10)):
-			raise TypeError
-		self.__alto=alto
-			
-	"""
-	Metodo toString de la clase Rectangulo
-	"""
-	
-	def __str__(self):
-		resultado=""
-		for i in range(0,self.__ancho):
-			i+=1
-			resultado+="--"
-			
-		resultado+="\n"
-		
-		for i in range(0,self.__alto-1):
-			i+=1
-			resultado +="--"
-			for espacios in range(1,self.__ancho-1):
-				espacios+=1
-				resultado+="  "
-			resultado+="--\n"
-		
-		for i in range (0,self.__ancho):
-			i+=1
-			resultado+="--"
-			
-		resultado+="\n"
-		return str(resultado)	
-		
-		
-	
-class Cuadrado(Rectangulo):	
-	
-	#Constructor de Cuadrado
-	
-	def __init__(self,lado):
-		super().__init__(lado, lado)
-	
-	# Getters y Setters
-	@property
-	def lado(self):
-		return super.alto
-	
-	@lado.setter
-	def lado(self,lado):
-		self.alto=lado
-		self.ancho=lado
-	
-	"""
-	Metodo que compara dos cuadrados pasados por parametros e indica cual es mayor
-	"""
-	
-	def __eq__(self,other):
-		return (self.alto==other.alto)
+    # Getters y Setters
+    
+    @property
+    def ancho(self):
+        return self.__ancho
+    
+    @ancho.setter
+    def ancho(self,ancho):
+        
+        if(ancho<0 or ancho >=10):
+            raise TypeError
+        self.__ancho=ancho
+        
+    @property
+    def alto(self):
+        return self.__alto
+    @alto.setter
+    def alto(self,alto):
+        if((alto<0 or alto>=10)):
+            raise TypeError
+        self.__alto=alto
+            
+    """
+    Metodo toString de la clase Rectangulo
+    """
+    
+    def __str__(self):
+        resultado=""
+        for i in range(0,self.__ancho):
+            i+=1
+            resultado+="--"
+            
+        resultado+="\n"
+        
+        for i in range(0,self.__alto-1):
+            i+=1
+            resultado +="--"
+            for espacios in range(1,self.__ancho-1):
+                espacios+=1
+                resultado+="  "
+            resultado+="--\n"
+        
+        for i in range (0,self.__ancho):
+            i+=1
+            resultado+="--"
+            
+        resultado+="\n"
 
-	def __lt__(self,other):
-		return (self.alto<other.alto)
-	
-	def __gt__(self,other):
-		return (self.alto>other.alto)
-	
-	"""def compararCuadrado(self,Cuadrado1,Cuadrado2):
-		
-		if(Cuadrado1.__lado>Cuadrado2.__lado):
-			print("El primer cuadrado es mayor que el segundo cuadrado.")
-		
-		elif(Cuadrado1.__lado==Cuadrado2.__lado):
-			print("El primer cuadrado es igual que el segundo cuadrado.")
-		
-		else:
-			print("El primer cuadrado es menor que el segundo cuadrado.")"""
-		
-	"""
-	Metodo toString de la clase Cuadrado
-	"""	
-		
-	def __str__(self):
-    		return Rectangulo.__str__(self)
-	
-	# Main para hacer las pruebas
-	
+        return str(resultado)    
+        
+        
+    
+class Cuadrado(Rectangulo):    
+    
+    #Constructor de Cuadrado
+    
+    def __init__(self,lado):
+        super().__init__(lado, lado)
+    
+    # Getters y Setters
+    @property
+    def lado(self):
+        return super.alto
+    
+    @lado.setter
+    def lado(self,lado):
+        self.alto=lado
+        self.ancho=lado
+    
+    """
+    Metodo que compara dos cuadrados pasados por parametros e indica cual es mayor
+    """
+    
+    def __eq__(self,other):
+        return (self.alto==other.alto)
+
+    def __le__(self,other):
+        return (self.alto<=other.alto)
+    
+    def __gt__(self,other):
+        return (self.alto>other.alto)
+            
+    """
+    Metodo toString de la clase Cuadrado
+    """    
+        
+    def __str__(self):
+            return Rectangulo.__str__(self)
+    
+    # Main para hacer las pruebas
+    
 if __name__ == '__main__':
-	
-	try:
-		r1 = Rectangulo(5,7)
-		print("Mostramos el rectangulo")
-		print(r1)
-		
-		c1 = Cuadrado(8)
-		print("Mostramos el primer cuadrado")
-		print(c1)
-		c1.lado=3
-		print(c1)
-		c2 = Cuadrado(6)
-		print("Mostramos el segundo cuadrado")
-		print(c2)
-		
-		print(c1>c2)
+    
+    try:
+        r1 = Rectangulo(5,7)
+        print("Mostramos el rectángulo")
+        print(r1)
+        
+        c1 = Cuadrado(8)
+        print("Mostramos el primer cuadrado")
+        print(c1)
+        c1.lado=3
+        print(c1)
+        c2 = Cuadrado(6)
+        print("Mostramos el segundo cuadrado")
+        print(c2)
+        
+        
+        print(c1>c2)
 
-	except:
-			sys.stderr.write("Error")
-			
-	
-	
+    except:
+            sys.stderr.write("Error")
+            
+    
+    
