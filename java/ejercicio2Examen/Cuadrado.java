@@ -72,14 +72,7 @@ public class Cuadrado extends Rectangulo implements Comparable<Cuadrado>{
    * */
   
   public boolean equals(Cuadrado cuadrado) {
-    boolean resultado;
-    if(this.getLado()==cuadrado.getLado()) {
-      resultado= true;
-    }
-    else {
-      resultado= false;
-    }
-    return resultado;
+    return this.getLado()==cuadrado.getLado();
   }
 }
 
