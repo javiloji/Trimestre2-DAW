@@ -2,26 +2,25 @@ package ejercicio2Examen;
 
 /**
  * 
- * Crea la clase Rectángulo de forma que:
+  Clase Rectángulo que crea: 
 
-  Un objeto de esta clase se construye pasándole el ancho y el alto. 
-  Ninguno de los dos atributospuede ser menor o igual a cero ni mayor que diez, 
-  en esos casos se debe lanzar la excepción ArithmeticException.
+ •Un objeto de esta clase se construye pasándole el ancho y el alto. 
+ Ninguno de los dos atributos puede ser menor o igual a cero ni mayor que diez, 
+ en esos casos se lanza la excepción ArithmeticException.
 
-  Mediante getters y setters permite que se acceda y se modifique el 
-  ancho y el alto del rectángulo teniendo en cuenta las restricciones en
-  cuanto a las dimensiones del apartado anterior.
-
- Al imprimir en pantalla un objeto de la clase usando System.out.print se 
- debe dibujar el rectángulo por la pantalla (de manera similar a como se imprime 
- un cuadrado en la página 130 del libro Aprende Java con Ejercicios).
-
- Crea la clase Cuadrado como subclase de Rectángulo. 
- Le debes añadir a su comportamiento la posibilidad de 
+ •Mediante getters y setters se permite que se acceda y se modifique el 
+ ancho y el alto del rectángulo teniendo en cuenta las restricciones en
+ cuanto a las dimensiones del apartado anterior.
+ 
+ •Al imprimir en pantalla un objeto de la clase usando System.out.print se 
+  dibuja el rectángulo por la pantalla.
+ 
+ •Crea la clase Cuadrado como subclase de Rectángulo. 
+ Además, añade a su comportamiento la posibilidad de 
  comparar objetos cuadrados entre sí.
-
- Crea los programas de test correspondientes a ambas clases. 
- Debes provocar que se lance la excepción y capturarla. 
+ 
+ •Los programas de test correspondientes a ambas clases,
+ provocando la excepcion y capturandola. 
  * 
  * @author Javier Lopera Jimenez
  *
@@ -29,11 +28,12 @@ package ejercicio2Examen;
 
 public class Cuadrado extends Rectangulo implements Comparable<Cuadrado>{
 
-
   public Cuadrado(double lado) {
     super(lado,lado);
   }
 
+  // Getters y Setters del lado
+  
   public double getLado() {
     return getAlto();
   }
@@ -42,40 +42,44 @@ public class Cuadrado extends Rectangulo implements Comparable<Cuadrado>{
       setAlto(lado);
       setAncho(lado);
   }
-
+  
   /**
    * 
-   * El metodo compararCuadrado al que le pasamos dos cuadrados 
-   * por parametro y nos indica cual es mayor.
+   * Método compareTo que permite comparar dos cuadrados, de forma que si un cuadrado es menor que el otro, 
+   * devuelve un número negativo, si es igual, devuelve un 0 y si es mayor, un número positivo.
    * 
-   * @param c1
-   * @param c2
-   */
-
-  /**
-   * 
-   * Creamos el metodo toString para dibujar los cuadrados.
-   * 
-   */
-
-  @Override
-  public String toString() {
-
-    return super.toString();
-
-  }	
+   * */
 
   public int compareTo(Cuadrado cuadrado) {
+    int resultado;
     if (this.getLado() < cuadrado.getLado()) {
-      return -1;
+      resultado= -1;
     }
     else if (this.getLado() > cuadrado.getLado()) {
-      return 1;
+      resultado= 1;
     }
     else {
-      return 0;
+      resultado= 0;
     }
-    //return (int)(this.getAlto().compareTo());
+    return resultado;
+  }
+  
+  /**
+   * 
+   * Creamos el metodo equals, que permite igualar dos cuadrados, de forma que si 
+   * son iguales devuelve true y si son distintos devuelve false.
+   * 
+   * */
+  
+  public boolean equals(Cuadrado cuadrado) {
+    boolean resultado;
+    if(this.getLado()==cuadrado.getLado()) {
+      resultado= true;
+    }
+    else {
+      resultado= false;
+    }
+    return resultado;
   }
 }
 

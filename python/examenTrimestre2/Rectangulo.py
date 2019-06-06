@@ -1,41 +1,37 @@
 '''
 
-Crea la clase Rectángulo de forma que:
+ Clase Rectángulo que crea: 
 
-•Un objeto de esta clase se construye pasándole el ancho y el alto. 
-Ninguno de los dos atributos puede ser menor o igual a cero ni mayor que diez, 
-en esos casos se debe lanzar la excepción ArithmeticException.
+ •Un objeto de esta clase se construye pasándole el ancho y el alto. 
+ Ninguno de los dos atributos puede ser menor o igual a cero ni mayor que diez, 
+ en esos casos se lanza la excepción ArithmeticException.
 
-•Mediante getters y setters permite que se acceda y se modifique el 
-ancho y el alto del rectángulo teniendo en cuenta las restricciones en
+ •Mediante getters y setters se permite que se acceda y se modifique el 
+ ancho y el alto del rectángulo teniendo en cuenta las restricciones en
  cuanto a las dimensiones del apartado anterior.
  
  •Al imprimir en pantalla un objeto de la clase usando System.out.print se 
- debe dibujar el rectángulo por la pantalla (de manera similar a como se imprime 
- un cuadrado en la página 130 del libro Aprende Java con Ejercicios).
+  dibuja el rectángulo por la pantalla.
  
  •Crea la clase Cuadrado como subclase de Rectángulo. 
- Le debes añadir a su comportamiento la posibilidad de 
+ Además, añade a su comportamiento la posibilidad de 
  comparar objetos cuadrados entre sí.
  
- •Crea los programas de test correspondientes a ambas clases. 
- Debes provocar que se lance la excepción y capturarla. 
+ •Los programas de test correspondientes a ambas clases,
+ provocando la excepcion y capturandola. 
 
-@author: Javier Lopera Jimenez
+ @author: Javier Lopera Jimenez
+ 
 '''
+
 import sys
 
 class Rectangulo():
     
-    #COnstructor de Rectángulo
-    
-    def __init__(self,ancho,alto):
-        
+    def __init__(self,ancho,alto):     
         
         self.ancho=ancho
-        self.alto=alto
-        
-    
+        self.alto=alto    
 
     # Getters y Setters
     
@@ -86,12 +82,8 @@ class Rectangulo():
         resultado+="\n"
 
         return str(resultado)    
-        
-        
-    
+               
 class Cuadrado(Rectangulo):    
-    
-    #Constructor de Cuadrado
     
     def __init__(self,lado):
         super().__init__(lado, lado)
@@ -107,24 +99,18 @@ class Cuadrado(Rectangulo):
         self.ancho=lado
     
     """
-    Metodo que compara dos cuadrados pasados por parametros e indica cual es mayor
+    Métodos que permiten comparar dos cuadrados.
     """
     
     def __eq__(self,other):
         return (self.alto==other.alto)
-
+    
     def __le__(self,other):
         return (self.alto<=other.alto)
     
     def __gt__(self,other):
         return (self.alto>other.alto)
             
-    """
-    Metodo toString de la clase Cuadrado
-    """    
-        
-    def __str__(self):
-        return Rectangulo.__str__(self)
     
     # Main para hacer las pruebas
     
