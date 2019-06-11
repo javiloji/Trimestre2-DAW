@@ -22,27 +22,6 @@ public class TestAlmacenv2 {
   static Menu menuIva = new Menu("Elija el tipo de iva:", new String[] { "General", "Reducido", "Superreducido" });
   static Menu menuGeneral = new Menu("ALMACEN", new String[] { "Listado", "Alta", "Baja","Modificación","Entrada de mercancía"
       ,"Salida de mercancía" });
-  
-  /**
-   * 
-   * Este era mi antiguo menu, y el de arriba, el nuevo
-   * 
-   * @param args
-   */
-  
-//  public static void mostrarMenu() {
-//    System.out.println("\n\nALMACEN");
-//    System.out.println("===================");
-//    System.out.println("1. Listado");
-//    System.out.println("2. Alta");
-//    System.out.println("3. Baja");
-//    System.out.println("4. Modificación");
-//    System.out.println("5. Entrada de mercancía");
-//    System.out.println("6. Salida de mercancía");
-//    System.out.println("7. Salir");
-//    System.out.print("Introduzca una opción: ");
-//  }
-  
 
   public static void main(String[] args) {
 
@@ -57,17 +36,17 @@ public class TestAlmacenv2 {
         e.printStackTrace();
       }
 
-      
+
       try {
         gestionar(opcion);
       } catch (NumberFormatException | IOException e) {
         e.printStackTrace();
       }
 
-       // switch
+      // switch
     } while (opcion != 7);
   }
-  
+
   private static void gestionar(int opcion)throws NumberFormatException, IOException{
     int codigoIntroducido;
     String descripcionIntroducido;
@@ -83,10 +62,10 @@ public class TestAlmacenv2 {
 
     case 2:
       try {
-      alta();
+        alta();
       }catch(Exception e) {
-      System.err.println(e.getMessage()+ " Este articulo no se ha podido añadir.");
-    }
+        System.err.println(e.getMessage()+ " Este articulo no se ha podido añadir.");
+      }
       break;
 
     case 3:
@@ -97,7 +76,7 @@ public class TestAlmacenv2 {
       break;
 
     case 4:
-      
+
       try {
         modificar();
       } catch (Exception e1) {
@@ -108,27 +87,27 @@ public class TestAlmacenv2 {
       break;
 
     case 5:
-      
+
       try {
         entrarMercancia();
       } catch (CodigoNoExiteException e) {
         // TODO Auto-generated catch block
         System.err.println(e.getMessage());
       }
-      
+
       break;
 
     case 6:
-      
+
       try {
         salirMercancia();
       } catch (CodigoNoExiteException e) {
         // TODO Auto-generated catch block
         System.err.println("Este articulo no se ha podido añadir.");
       }
-    
+
       break;
-    
+
 
     default:
       System.out.println("Fin del programa");
@@ -140,34 +119,38 @@ public class TestAlmacenv2 {
     System.out.println("\nNUEVO PRODUCTO");
     System.out.println("===========");
     System.out.println("Por favor, introduzca los datos del producto.");
-    
-    
+
+
     almacen.alta(Teclado.leerCadena("Introduzca la descripcion del producto"),elegirIva(),
         Teclado.leerDecimal("Introduzca el precio de compra"),Teclado.leerDecimal("Introduzca el precio de venta"),
         Teclado.leerEntero("Stock"));
     
   }
-  
+
   public static void baja() {
     int codigoIntroducido = 0;
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea dar de baja");
-    
+
     try {
       codigoIntroducido = Teclado.leerEntero();
-    } catch (NumberFormatException | IOException e) {
+    } catch (NumberFormatException e) {
       System.err.println("Debes introducir un numero");
     }
+    try {
       almacen.baja(codigoIntroducido);
+    } catch (CodigoNoExiteException e) {
+      System.err.println(e.getMessage());
+    }
   }
-  
+
   public static void modificar() throws IvaInvalidoException, Exception {
     int codigoIntroducido = 0;
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea modificar");
     try {
       codigoIntroducido = Teclado.leerEntero();
-    } catch (NumberFormatException | IOException e2) {
+    } catch (NumberFormatException e2) {
       System.err.println("Debes introducir un numero");
     }
 
@@ -177,7 +160,7 @@ public class TestAlmacenv2 {
     System.out.println("\nMODIFICACIÓN DE PRODUCTO");
     System.out.println("===========");
     System.out.println("Por favor, introduzca los datos del producto.");
-    
+
 
     /**
      * 
@@ -185,7 +168,7 @@ public class TestAlmacenv2 {
      * ahora uso la clase Teclado y ahorro mucho codigo sin necesitar ni Scanner ni las variables.
      * 
      * */
-    
+
     try {
       almacen.modificar(articulo,elegirIva(), Teclado.leerCadena("Introduzca la descripcion del producto"),
           Teclado.leerDecimal("Introduzca el precio de compra"),Teclado.leerDecimal("Introduzca el precio de venta"),
@@ -194,7 +177,7 @@ public class TestAlmacenv2 {
       System.err.println(e.getMessage());
     }
   }
-  
+
   public static void entrarMercancia() throws NumberFormatException, IOException, CodigoNoExiteException {
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea aumentar su stock");
@@ -206,7 +189,7 @@ public class TestAlmacenv2 {
     }
 
   }
-  
+
   public static void salirMercancia() throws NumberFormatException, IOException , CodigoNoExiteException {
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea disminuir su stock");
@@ -217,30 +200,21 @@ public class TestAlmacenv2 {
       System.err.println(e.getMessage());
     }
   }
-  
-  /**
-   * 
-   * Antes no usaba la clase menu, si no que creaba el menu del Iva a mano.
-   * 
-   * @return
-   * @throws NumberFormatException
-   * @throws IOException
-   */
-  
-   public static Iva elegirIva() throws NumberFormatException, IOException {
+
+  public static Iva elegirIva() throws NumberFormatException, IOException {
 
     Iva ivaElegido = null;
 
-//   int  opcion = menuIva.gestionar(); // Pide al usuario introducir un numero para escoger la opcion
+    //   int  opcion = menuIva.gestionar(); // Pide al usuario introducir un numero para escoger la opcion
 
     switch (menuIva.gestionar()) {
     case 1:
       return Iva.GENERAL;
-    // break;
+      // break;
     case 2:
       return Iva.REDUCIDO;
-    // break;
-   case 3:
+      // break;
+    case 3:
       return Iva.SUPERREDUCIDO;
     default:// case 3:
       return null;
