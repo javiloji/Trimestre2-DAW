@@ -41,7 +41,7 @@ public class Almacenv2 {
   }
 
   public void modificar(Articulo articulo,Iva iva, String descripcionIntroducido, double precioCompraIntroducido,
-      double precioVentaIntroducido, int stockIntroducido) throws CodigoNoExiteException, StockNegativoException, IvaInvalidoException {
+      double precioVentaIntroducido, int stockIntroducido) throws CodigoNoExiteException, StockNegativoException, IvaInvalidoException, PrecioNegativoException {
 
     articulo.set(descripcionIntroducido,iva, precioCompraIntroducido, precioVentaIntroducido, stockIntroducido);
   }

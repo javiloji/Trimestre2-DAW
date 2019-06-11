@@ -13,6 +13,7 @@ import capaNegocio.Articulo;
 import capaNegocio.CodigoNoExiteException;
 import capaNegocio.Iva;
 import capaNegocio.IvaInvalidoException;
+import capaNegocio.PrecioNegativoException;
 import capaNegocio.StockNegativoException;
 import utiles.*;
 
@@ -115,16 +116,20 @@ public class TestAlmacenv2 {
   }
 
   public static void alta() throws IvaInvalidoException,NumberFormatException, IOException, Exception {
+    
     System.out.println(almacen);
     System.out.println("\nNUEVO PRODUCTO");
     System.out.println("===========");
     System.out.println("Por favor, introduzca los datos del producto.");
 
+    try {
 
     almacen.alta(Teclado.leerCadena("Introduzca la descripcion del producto"),elegirIva(),
         Teclado.leerDecimal("Introduzca el precio de compra"),Teclado.leerDecimal("Introduzca el precio de venta"),
         Teclado.leerEntero("Stock"));
-    
+    }catch (PrecioNegativoException e) {
+      System.err.println(e.getMessage());
+    };
   }
 
   public static void baja() {
