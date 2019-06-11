@@ -35,15 +35,15 @@ public class Almacenv2 {
 
   public void baja(int codigo) throws CodigoNoExiteException {
 
-    if(!almacen.remove(new Articulo(codigo)))
+    if(!almacen.remove(get(codigo)))
       //System.err.println("Error, el código introducido no existe.");
       throw new CodigoNoExiteException("Error, el código introducido no existe.");
   }
 
-  public void modificar(Articulo articulo,Iva iva, String descripcionIntroducido, double precioCompraIntroducido,
+  public void modificar(int codigo,Iva iva, String descripcionIntroducido, double precioCompraIntroducido,
       double precioVentaIntroducido, int stockIntroducido) throws CodigoNoExiteException, StockNegativoException, IvaInvalidoException, PrecioNegativoException {
 
-    articulo.set(descripcionIntroducido,iva, precioCompraIntroducido, precioVentaIntroducido, stockIntroducido);
+    get(codigo).set(descripcionIntroducido,iva, precioCompraIntroducido, precioVentaIntroducido, stockIntroducido);
   }
 
 

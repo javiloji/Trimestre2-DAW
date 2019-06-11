@@ -133,11 +133,15 @@ public class TestAlmacenv2 {
   }
 
   public static void baja() {
+    
     int codigoIntroducido = 0;
+    
+    try {
+    
     System.out.println(almacen);
     System.out.println("Introduzca el código del artículo que desea dar de baja");
 
-    try {
+    
       codigoIntroducido = Teclado.leerEntero();
     } catch (NumberFormatException e) {
       System.err.println("Debes introducir un numero");
@@ -175,7 +179,7 @@ public class TestAlmacenv2 {
      * */
 
     try {
-      almacen.modificar(articulo,elegirIva(), Teclado.leerCadena("Introduzca la descripcion del producto"),
+      almacen.modificar(codigoIntroducido,elegirIva(), Teclado.leerCadena("Introduzca la descripcion del producto"),
           Teclado.leerDecimal("Introduzca el precio de compra"),Teclado.leerDecimal("Introduzca el precio de venta"),
           Teclado.leerEntero(" el stock"));
     } catch (CodigoNoExiteException | StockNegativoException | IvaInvalidoException e) {
