@@ -113,7 +113,7 @@ public class TestAlmacenv2 {
     }
   }
 
-  public static void alta() throws IvaInvalidoException, NumberFormatException, IOException, Exception {
+  public static void alta() throws IvaInvalidoException, Exception {
     try {
       System.out.println(almacen);
       System.out.println("\nNUEVO PRODUCTO");
