@@ -31,23 +31,18 @@ public class TestAlmacenv2 {
     int opcion = 0;
 
     do {
-      try {
-        opcion = menuGeneral.gestionar();
-      } catch (NumberFormatException | IOException e) {
-        e.printStackTrace();
-      }
-
-      try {
-        gestionar(opcion);
-      } catch (NumberFormatException | IOException e) {
-        e.printStackTrace();
-      }
-
+        try {
+          opcion = menuGeneral.gestionar();
+          gestionar(opcion);
+        } catch (NumberFormatException | IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       // switch
     } while (opcion != 7);
   }
 
-  private static void gestionar(int opcion) throws NumberFormatException, IOException {
+  private static void gestionar(int opcion) {
     int codigoIntroducido;
     String descripcionIntroducido;
     double precioCompraIntroducido;
@@ -132,7 +127,7 @@ public class TestAlmacenv2 {
 
     System.out.println(almacen);
     if (!almacen.baja(Teclado.leerEntero("Introduzca el código del artículo que desea dar de baja")))
-      System.err.println("Error en la baja del artículo. El código no existe");
+      System.err.println("\nError en la baja del artículo. El código no existe");
 
   }
 
