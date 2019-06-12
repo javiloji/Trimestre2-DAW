@@ -6,8 +6,6 @@ package capaPresentacion;
  * 
  */
 
-import java.io.IOException;
-
 import capaNegocio.Almacenv2;
 import capaNegocio.Articulo;
 import capaNegocio.CodigoNoExiteException;
@@ -26,33 +24,21 @@ public class TestAlmacenv2 {
 
   public static void main(String[] args) {
 
-    // Creo el objeto Scanner y el ArrayList
-
-    int opcion = 0;
+    int opcion;
 
     do {
-        try {
-          opcion = menuGeneral.gestionar();
-          gestionar(opcion);
-        } catch (NumberFormatException | IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      // switch
+      
+      opcion = menuGeneral.gestionar();
+      System.out.println(almacen);
+      gestionar(opcion);
+      
     } while (opcion != 7);
   }
 
   private static void gestionar(int opcion) {
-    int codigoIntroducido;
-    String descripcionIntroducido;
-    double precioCompraIntroducido;
-    double precioVentaIntroducido;
-    int stockIntroducido;
+    
     switch (opcion) {
     case 1:
-      // listado();
-      System.out.println(almacen);
-
       break;
 
     case 2:
@@ -64,8 +50,7 @@ public class TestAlmacenv2 {
       break;
 
     case 3:
-      // baja();
-
+      
       baja();
 
       break;
@@ -110,7 +95,6 @@ public class TestAlmacenv2 {
 
   public static void alta() throws IvaInvalidoException, Exception {
     try {
-      System.out.println(almacen);
       System.out.println("\nNUEVO PRODUCTO");
       System.out.println("===========");
       System.out.println("Por favor, introduzca los datos del producto.");
@@ -125,7 +109,6 @@ public class TestAlmacenv2 {
 
   public static void baja() {
 
-    System.out.println(almacen);
     if (!almacen.baja(Teclado.leerEntero("Introduzca el código del artículo que desea dar de baja")))
       System.err.println("\nError en la baja del artículo. El código no existe");
 
@@ -134,8 +117,6 @@ public class TestAlmacenv2 {
   public static void modificar() throws IvaInvalidoException, Exception {
     
     try {
-      
-      System.out.println(almacen);
       
       Articulo articulo = almacen.get(Teclado.leerEntero("Introduzca el código del artículo que desea modificar"));
       System.out.println(articulo);
@@ -155,7 +136,6 @@ public class TestAlmacenv2 {
   public static void entrarMercancia() throws CodigoNoExiteException {
 
     try {
-      System.out.println(almacen);
       almacen.entrarMercancia(Teclado.leerEntero("Introduzca el código del artículo que desea aumentar su stock"));
     } catch (StockNegativoException e) {
       System.err.println(e.getMessage());
@@ -166,31 +146,21 @@ public class TestAlmacenv2 {
   public static void salirMercancia() throws CodigoNoExiteException {
     
     try {
-      System.out.println(almacen);
       almacen.salirMercancia(Teclado.leerEntero("Introduzca el código del artículo que desea disminuir su stock"));
     } catch (StockNegativoException e) {
       System.err.println(e.getMessage());
     }
   }
 
-  public static Iva elegirIva() throws NumberFormatException, IOException {
-
-    Iva ivaElegido = null;
-
-    // int opcion = menuIva.gestionar(); // Pide al usuario introducir un numero
-    // para escoger la opcion
-
+  public static Iva elegirIva() {
+    
     switch (menuIva.gestionar()) {
     case 1:
       return Iva.GENERAL;
-    // break;
     case 2:
       return Iva.REDUCIDO;
-    // break;
-    case 3:
+    default:
       return Iva.SUPERREDUCIDO;
-    default:// case 3:
-      return null;
     }
   }
 }
