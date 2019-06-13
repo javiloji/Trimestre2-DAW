@@ -165,9 +165,13 @@ public class TestEjercicio1 {
           BufferedReader lector = new BufferedReader(leer);
           BufferedWriter escritura = new BufferedWriter(escribir);
 
+          
+          
           String linea = "";
           String resultado = "";
-
+          
+          
+          
           while (linea != null) {
             linea = lector.readLine();
 
@@ -194,7 +198,7 @@ public class TestEjercicio1 {
             }
           }
 
-          textArea.append(resultado);
+          textArea.setText(resultado);
 
           lector.close();
           escritura.close();

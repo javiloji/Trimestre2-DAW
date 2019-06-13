@@ -113,7 +113,7 @@ public class TestEjercicio2 {
           textField.setText(suma1DiaFecha(textField.getText()));
         }
         else
-          JOptionPane.showMessageDialog(btnNewButton_1, "Antes hay que validar la fecha.");
+          JOptionPane.showMessageDialog(btnNewButton_1, "La fecha no ha sido introducida correctamente.");
       } 
     });
     btnNewButton_1.setBounds(67, 140, 173, 23);
@@ -126,7 +126,7 @@ public class TestEjercicio2 {
           textField.setText(resta1DiaFecha(textField.getText()));
         }
         else
-          JOptionPane.showMessageDialog(btnNewButton_2, "Antes hay que validar la fecha.");
+          JOptionPane.showMessageDialog(btnNewButton_2, "La fecha no ha sido introducida correctamente.");
       }
     });
     btnNewButton_2.setBounds(67, 195, 173, 23);
@@ -180,7 +180,7 @@ public class TestEjercicio2 {
             JOptionPane.showMessageDialog(textField, "Hay "+dias+" dias hasta el día de hoy.");
           }
           else
-            JOptionPane.showMessageDialog(btnNewButton_3, "Antes hay que validar la fecha.");
+            JOptionPane.showMessageDialog(btnNewButton_3, "La fecha no ha sido introducida correctamente.");
         } catch (ParseException e1) {
           // TODO Auto-generated catch block
           e1.printStackTrace();
