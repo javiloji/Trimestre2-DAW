@@ -99,7 +99,6 @@ public class TestEjercicio2 {
         }
         else {
         JOptionPane.showMessageDialog(btnNewButton, "Fecha Correcta", null, 3);
-        textField_1.setText(textField.getText());
         }
         
       }
@@ -110,10 +109,12 @@ public class TestEjercicio2 {
     JButton btnNewButton_1 = new JButton("Dia Posterior");
     btnNewButton_1.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        
-        textField_1.setText(suma1DiaFecha(textField_1.getText()));
-        
-      }
+        if(validarFecha(textField.getText())) {
+          textField.setText(suma1DiaFecha(textField.getText()));
+        }
+        else
+          JOptionPane.showMessageDialog(btnNewButton_1, "Antes hay que validar la fecha.");
+      } 
     });
     btnNewButton_1.setBounds(67, 140, 173, 23);
     panel.add(btnNewButton_1);
@@ -121,9 +122,11 @@ public class TestEjercicio2 {
     JButton btnNewButton_2 = new JButton("Dia Anterior");
     btnNewButton_2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        
-        textField_1.setText(resta1DiaFecha(textField_1.getText()));
-        
+        if(validarFecha(textField.getText())) {
+          textField.setText(resta1DiaFecha(textField.getText()));
+        }
+        else
+          JOptionPane.showMessageDialog(btnNewButton_2, "Antes hay que validar la fecha.");
       }
     });
     btnNewButton_2.setBounds(67, 195, 173, 23);
@@ -144,37 +147,40 @@ public class TestEjercicio2 {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         
         try {
+          if(validarFecha(textField.getText())) {
+            Calendar fecha = new GregorianCalendar();
+            
+            int d = fecha.get(Calendar.DAY_OF_MONTH);
+            int m = fecha.get(Calendar.MONTH) + 1;
+            int a = fecha.get(Calendar.YEAR);
+            
+            String fechaActual;
+            
+            if(d < 10 && m >=10) {
+              fechaActual = "0" + Integer.toString(d) + "/" + Integer.toString(m) + "/" + Integer.toString(a);
+            }
+            else if(m < 10 && d >=10) {
+              fechaActual = Integer.toString(d) + "/" + "0" + Integer.toString(m) + "/" + Integer.toString(a);
+            }
+            else if(d < 10 && m < 10) {
+              fechaActual = "0" + Integer.toString(d) + "/" + "0" + Integer.toString(m) + "/" + Integer.toString(a);
+  
+            }
+            else
+              fechaActual = Integer.toString(d) + "/" + Integer.toString(m) + "/" + Integer.toString(a);
+            
+            Date fechaInicial;
+            Date fechaFinal ;
+            fechaInicial = dateFormat.parse(textField.getText());
+            fechaFinal = dateFormat.parse(fechaActual);
           
-          Calendar fecha = new GregorianCalendar();
-          
-          int d = fecha.get(Calendar.DAY_OF_MONTH);
-          int m = fecha.get(Calendar.MONTH) + 1;
-          int a = fecha.get(Calendar.YEAR);
-          
-          String fechaActual;
-          
-          if(d < 10 && m >=10) {
-            fechaActual = "0" + Integer.toString(d) + "/" + Integer.toString(m) + "/" + Integer.toString(a);
-          }
-          else if(m < 10 && d >=10) {
-            fechaActual = Integer.toString(d) + "/" + "0" + Integer.toString(m) + "/" + Integer.toString(a);
-          }
-          else if(d < 10 && m < 10) {
-            fechaActual = "0" + Integer.toString(d) + "/" + "0" + Integer.toString(m) + "/" + Integer.toString(a);
-
+       
+            int dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
+       
+            JOptionPane.showMessageDialog(textField, "Hay "+dias+" dias hasta el día de hoy.");
           }
           else
-            fechaActual = Integer.toString(d) + "/" + Integer.toString(m) + "/" + Integer.toString(a);
-          
-          Date fechaInicial;
-          Date fechaFinal ;
-          fechaInicial = dateFormat.parse(textField_1.getText());
-          fechaFinal = dateFormat.parse(fechaActual);
-        
-     
-          int dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
-     
-          JOptionPane.showMessageDialog(textField_1, "Hay "+dias+" dias de diferencia");
+            JOptionPane.showMessageDialog(btnNewButton_3, "Antes hay que validar la fecha.");
         } catch (ParseException e1) {
           // TODO Auto-generated catch block
           e1.printStackTrace();
@@ -183,13 +189,7 @@ public class TestEjercicio2 {
     });
     btnNewButton_3.setBounds(67, 249, 173, 23);
     panel.add(btnNewButton_3);
-    
-    textField_1 = new JTextField();
-    textField_1.setBounds(67, 301, 173, 20);
-    panel.add(textField_1);
-    textField_1.setColumns(10);
-    textField_1.setEditable(false);
-    
+  
     JLabel lblIntroduceLaFecha = new JLabel("Introduce la fecha");
     lblIntroduceLaFecha.setBounds(67, 19, 173, 14);
     panel.add(lblIntroduceLaFecha);
@@ -202,7 +202,7 @@ public class TestEjercicio2 {
         
       }
     });
-    btnNewButton_4.setBounds(67, 346, 173, 23);
+    btnNewButton_4.setBounds(67, 299, 173, 23);
     panel.add(btnNewButton_4);
     
     
