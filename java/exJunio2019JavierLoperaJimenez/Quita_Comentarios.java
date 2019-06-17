@@ -15,6 +15,7 @@ package exJunio2019JavierLoperaJimenez;
  */
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,6 +42,7 @@ public class Quita_Comentarios {
   protected JTextField rutaFicheroDestino;
   private JLabel lblFicheroOriginal;
   private JLabel lblFicheroDestino;
+  private JLabel lblProgramaConDos;
   private JButton btnSeleccionarFichero;
   private JButton btnSeleccionarFichero_1;
   private JButton btnQuitarComentariosSinParametros;
@@ -77,6 +79,7 @@ public class Quita_Comentarios {
               window.btnSeleccionarFichero.setVisible(false);
               window.lblFicheroOriginal.setVisible(false);
               window.btnQuitarComentariosSinParametros.setVisible(false);
+              window.lblProgramaConDos.setVisible(false);
               window.frame.setVisible(true);
             
             }
@@ -107,11 +110,12 @@ public class Quita_Comentarios {
           }
          
           else if(args.length == 0){
+              window.lblProgramaConDos.setVisible(false);
               window.btnQuitarComentariosUnParametro.setVisible(false);
               window.frame.setVisible(true);
           }
           else {
-            JOptionPane.showMessageDialog(null, "El programa no puee tener mas e dos argumentos.");
+            JOptionPane.showMessageDialog(null, "El programa no puede tener mas de dos argumentos.");
             System.exit(0);
           }
         } catch (Exception e) {
@@ -141,7 +145,6 @@ public class Quita_Comentarios {
     
     try {
       BufferedReader lectorTitulo = new BufferedReader(new FileReader(ficheroTitulo.getAbsolutePath()));
-    
     
       String titulo = lectorTitulo.readLine();
       lectorTitulo.close();
@@ -273,6 +276,11 @@ public class Quita_Comentarios {
     textAreaResultado.setEditable(false);
     textAreaResultado.setBounds(276, 139, 218, 161);
     scrollPane_1.setViewportView(textAreaResultado);
+    
+    lblProgramaConDos = new JLabel("Programa Con Dos Argumentos");
+    lblProgramaConDos.setBounds(80, 26, 371, 78);
+    lblProgramaConDos.setFont(new Font("", Font.ITALIC, 25));
+    frame.getContentPane().add(lblProgramaConDos);
   }
   
   /**
@@ -308,14 +316,27 @@ public class Quita_Comentarios {
       
       for(String i : arrayInicial ) {
         textoInicial += i + "\n";
-        if(i.contains("//")) {
+        if(i.contains("//") && comentarioBloqueJavadoc == false) {
           String comentario = i.substring(i.indexOf("/"), i.length());
           String noComentario = i.substring(0, i.indexOf("/"));
-          arrayFinal.remove(comentario);
-          arrayFinal.add(noComentario);
-          escritura.write(noComentario);
-          escritura.newLine();
-          textoDestino += noComentario + "\n";
+          //arrayFinal.remove(comentario);
+          //arrayFinal.add(noComentario);
+          if(!noComentario.isEmpty()) {
+            String noComentarioVacio = noComentario.replace(" ", "");
+            if(noComentarioVacio.isEmpty()) {
+              arrayFinal.remove(i);
+            }
+            else {
+              arrayFinal.remove(comentario);
+              arrayFinal.add(comentario);
+              escritura.write(noComentario);
+              escritura.newLine();
+              textoDestino += noComentario + "\n";
+            }
+          }
+          else {
+            arrayFinal.remove(i);
+          }
           }
         else if(i.contains("/*") || i.contains("/**")) {
           
