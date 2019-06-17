@@ -106,9 +106,13 @@ public class Quita_Comentarios {
             }
           }
          
-          else {
+          else if(args.length == 0){
               window.btnQuitarComentariosUnParametro.setVisible(false);
               window.frame.setVisible(true);
+          }
+          else {
+            JOptionPane.showMessageDialog(null, "El programa no puee tener mas e dos argumentos.");
+            System.exit(0);
           }
         } catch (Exception e) {
           e.printStackTrace();
@@ -222,7 +226,6 @@ public class Quita_Comentarios {
           // ponemos la ruta en el textfield destino
           rutaFicheroDestino.setText(ficheroDestino.getAbsolutePath());
         }
-        
       }
     });
     btnSeleccionarFichero_1.setBounds(368, 22, 153, 23);
